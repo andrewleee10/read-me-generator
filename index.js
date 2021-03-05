@@ -2,45 +2,54 @@ const inquirer = require('inquirer')
 const fs = require('fs')
 const generateMarkdown = require('./generateMarkdown')
 
-let questions = []
 
 const userInput = () => {
   inquirer.prompt([
     {
-      type: 'input'
-      name: 'title'
+      type: 'input',
+      name: 'title',
       message: 'Enter project title.'
     },
     {
-      type: 'input'
-      name: 'description'
+      type: 'input',
+      name: 'description',
       message: 'Enter description.'
     },
     {
-      type: 'input'
-      name: 'installation'
+      type: 'input',
+      name: 'installation',
       message: 'Enter installation instructions.'
     },
     {
-      type: 'input'
-      name: 'usage'
+      type: 'input',
+      name: 'usage',
       message: 'Enter usage information.'
     },
     {
-      type: 'input'
-      name: 'contribution'
+      type: 'list',
+      name: 'license',
+      message: 'Select license:',
+      choices: ['MIT', 'GNU GPLv3', 'Apache', 'OpenBSD']
+    },
+    {
+      type: 'input',
+      name: 'contribution',
       message: 'Enter contribution guidelines.'
     },
     {
-      type: 'input'
-      name: 'test'
+      type: 'input',
+      name: 'test',
       message: 'Enter test instructions.'
-    },
+    }
   ])
     .then (res => {
       console.log(res)
-      questions.push(description, installation, usage, contribution, test)
-      generateMarkdown(res.title)
+      let generate = generateMarkdown(res)
+      fs.writeFile('READMESAMPLE.md', generate, err => {
+        if(err) { console.log(err) }
+      })
     })
     .catch (err => console.log(err))
 }
+
+userInput()
