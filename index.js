@@ -29,7 +29,7 @@ const userInput = () => {
       type: 'list',
       name: 'license',
       message: 'Select license:',
-      choices: ['MIT', 'GNU GPLv3', 'Apache', 'OpenBSD']
+      choices: ['MIT', 'GNU GPLv3', 'Apache', 'OpenBSD', 'None']
     },
     {
       type: 'input',
@@ -42,14 +42,14 @@ const userInput = () => {
       message: 'Enter test instructions.'
     }
   ])
-    .then (res => {
+    .then(res => {
       console.log(res)
       let generate = generateMarkdown(res)
-      fs.writeFile('READMESAMPLE.md', generate, err => {
-        if(err) { console.log(err) }
+      fs.writeFile('READMEtest.md', generate, err => {
+        if (err) { console.log(err) }
       })
     })
-    .catch (err => console.log(err))
+    .catch(err => console.log(err))
 }
 
 userInput()
